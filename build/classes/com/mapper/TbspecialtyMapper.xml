@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbspecialtyMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbspecialty" >
+    <id column="SPEssthh_id" property="spessthhId" jdbcType="VARCHAR" />
+    <result column="SPEname" property="spename" jdbcType="VARCHAR" />
+    <result column="SPEprice" property="speprice" jdbcType="VARCHAR" />
+    <result column="SPEpicture" property="spepicture" jdbcType="VARCHAR" />
+    <result column="SPEchange_time" property="spechangeTime" jdbcType="TIMESTAMP" />
+    <result column="SPEstate" property="spestate" jdbcType="VARCHAR" />
+    <result column="SPEchanger" property="spechanger" jdbcType="VARCHAR" />
+    <result column="SPEtype" property="spetype" jdbcType="VARCHAR" />
+    <result column="SPEMid" property="spemid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.Tbspecialty" extends="BaseResultMap" >
+    <result column="SPEdescribe" property="spedescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SPEssthh_id, SPEname, SPEprice, SPEpicture, SPEchange_time, SPEstate, SPEchanger, 
+    SPEtype, SPEMid
+  </sql>
+  <sql id="Blob_Column_List" >
+    SPEdescribe
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbspecialtyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbspecialty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbspecialtyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbspecialty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbspecialty
+    where SPEssthh_id = #{spessthhId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbspecialty
+    where SPEssthh_id = #{spessthhId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbspecialtyExample" >
+    delete from tbspecialty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbspecialty" >
+    insert into tbspecialty (SPEssthh_id, SPEname, SPEprice, 
+      SPEpicture, SPEchange_time, SPEstate, 
+      SPEchanger, SPEtype, SPEMid, 
+      SPEdescribe)
+    values (#{spessthhId,jdbcType=VARCHAR}, #{spename,jdbcType=VARCHAR}, #{speprice,jdbcType=VARCHAR}, 
+      #{spepicture,jdbcType=VARCHAR}, #{spechangeTime,jdbcType=TIMESTAMP}, #{spestate,jdbcType=VARCHAR}, 
+      #{spechanger,jdbcType=VARCHAR}, #{spetype,jdbcType=VARCHAR}, #{spemid,jdbcType=BIGINT}, 
+      #{spedescribe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbspecialty" >
+    insert into tbspecialty
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spessthhId != null" >
+        SPEssthh_id,
+      </if>
+      <if test="spename != null" >
+        SPEname,
+      </if>
+      <if test="speprice != null" >
+        SPEprice,
+      </if>
+      <if test="spepicture != null" >
+        SPEpicture,
+      </if>
+      <if test="spechangeTime != null" >
+        SPEchange_time,
+      </if>
+      <if test="spestate != null" >
+        SPEstate,
+      </if>
+      <if test="spechanger != null" >
+        SPEchanger,
+      </if>
+      <if test="spetype != null" >
+        SPEtype,
+      </if>
+      <if test="spemid != null" >
+        SPEMid,
+      </if>
+      <if test="spedescribe != null" >
+        SPEdescribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spessthhId != null" >
+        #{spessthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="spename != null" >
+        #{spename,jdbcType=VARCHAR},
+      </if>
+      <if test="speprice != null" >
+        #{speprice,jdbcType=VARCHAR},
+      </if>
+      <if test="spepicture != null" >
+        #{spepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="spechangeTime != null" >
+        #{spechangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spestate != null" >
+        #{spestate,jdbcType=VARCHAR},
+      </if>
+      <if test="spechanger != null" >
+        #{spechanger,jdbcType=VARCHAR},
+      </if>
+      <if test="spetype != null" >
+        #{spetype,jdbcType=VARCHAR},
+      </if>
+      <if test="spemid != null" >
+        #{spemid,jdbcType=BIGINT},
+      </if>
+      <if test="spedescribe != null" >
+        #{spedescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbspecialtyExample" resultType="java.lang.Integer" >
+    select count(*) from tbspecialty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbspecialty
+    <set >
+      <if test="record.spessthhId != null" >
+        SPEssthh_id = #{record.spessthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spename != null" >
+        SPEname = #{record.spename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speprice != null" >
+        SPEprice = #{record.speprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spepicture != null" >
+        SPEpicture = #{record.spepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spechangeTime != null" >
+        SPEchange_time = #{record.spechangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spestate != null" >
+        SPEstate = #{record.spestate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spechanger != null" >
+        SPEchanger = #{record.spechanger,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spetype != null" >
+        SPEtype = #{record.spetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spemid != null" >
+        SPEMid = #{record.spemid,jdbcType=BIGINT},
+      </if>
+      <if test="record.spedescribe != null" >
+        SPEdescribe = #{record.spedescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbspecialty
+    set SPEssthh_id = #{record.spessthhId,jdbcType=VARCHAR},
+      SPEname = #{record.spename,jdbcType=VARCHAR},
+      SPEprice = #{record.speprice,jdbcType=VARCHAR},
+      SPEpicture = #{record.spepicture,jdbcType=VARCHAR},
+      SPEchange_time = #{record.spechangeTime,jdbcType=TIMESTAMP},
+      SPEstate = #{record.spestate,jdbcType=VARCHAR},
+      SPEchanger = #{record.spechanger,jdbcType=VARCHAR},
+      SPEtype = #{record.spetype,jdbcType=VARCHAR},
+      SPEMid = #{record.spemid,jdbcType=BIGINT},
+      SPEdescribe = #{record.spedescribe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbspecialty
+    set SPEssthh_id = #{record.spessthhId,jdbcType=VARCHAR},
+      SPEname = #{record.spename,jdbcType=VARCHAR},
+      SPEprice = #{record.speprice,jdbcType=VARCHAR},
+      SPEpicture = #{record.spepicture,jdbcType=VARCHAR},
+      SPEchange_time = #{record.spechangeTime,jdbcType=TIMESTAMP},
+      SPEstate = #{record.spestate,jdbcType=VARCHAR},
+      SPEchanger = #{record.spechanger,jdbcType=VARCHAR},
+      SPEtype = #{record.spetype,jdbcType=VARCHAR},
+      SPEMid = #{record.spemid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbspecialty" >
+    update tbspecialty
+    <set >
+      <if test="spename != null" >
+        SPEname = #{spename,jdbcType=VARCHAR},
+      </if>
+      <if test="speprice != null" >
+        SPEprice = #{speprice,jdbcType=VARCHAR},
+      </if>
+      <if test="spepicture != null" >
+        SPEpicture = #{spepicture,jdbcType=VARCHAR},
+      </if>
+      <if test="spechangeTime != null" >
+        SPEchange_time = #{spechangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spestate != null" >
+        SPEstate = #{spestate,jdbcType=VARCHAR},
+      </if>
+      <if test="spechanger != null" >
+        SPEchanger = #{spechanger,jdbcType=VARCHAR},
+      </if>
+      <if test="spetype != null" >
+        SPEtype = #{spetype,jdbcType=VARCHAR},
+      </if>
+      <if test="spemid != null" >
+        SPEMid = #{spemid,jdbcType=BIGINT},
+      </if>
+      <if test="spedescribe != null" >
+        SPEdescribe = #{spedescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SPEssthh_id = #{spessthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.Tbspecialty" >
+    update tbspecialty
+    set SPEname = #{spename,jdbcType=VARCHAR},
+      SPEprice = #{speprice,jdbcType=VARCHAR},
+      SPEpicture = #{spepicture,jdbcType=VARCHAR},
+      SPEchange_time = #{spechangeTime,jdbcType=TIMESTAMP},
+      SPEstate = #{spestate,jdbcType=VARCHAR},
+      SPEchanger = #{spechanger,jdbcType=VARCHAR},
+      SPEtype = #{spetype,jdbcType=VARCHAR},
+      SPEMid = #{spemid,jdbcType=BIGINT},
+      SPEdescribe = #{spedescribe,jdbcType=LONGVARCHAR}
+    where SPEssthh_id = #{spessthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbspecialty" >
+    update tbspecialty
+    set SPEname = #{spename,jdbcType=VARCHAR},
+      SPEprice = #{speprice,jdbcType=VARCHAR},
+      SPEpicture = #{spepicture,jdbcType=VARCHAR},
+      SPEchange_time = #{spechangeTime,jdbcType=TIMESTAMP},
+      SPEstate = #{spestate,jdbcType=VARCHAR},
+      SPEchanger = #{spechanger,jdbcType=VARCHAR},
+      SPEtype = #{spetype,jdbcType=VARCHAR},
+      SPEMid = #{spemid,jdbcType=BIGINT}
+    where SPEssthh_id = #{spessthhId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- =================手打======================== -->
+ <!--  <select id="selectSpecialtyList"></select> -->
+ <resultMap id="ResultMapWithShopMap" type="com.common.vo.SpecShopVo" >
+ 
+       <id column="SPEssthh_id" property="spessthhId" jdbcType="VARCHAR" />
+	    <result column="SPEname" property="spename" jdbcType="VARCHAR" />
+	    <result column="SPEprice" property="speprice" jdbcType="VARCHAR" />
+	    <result column="SPEpicture" property="spepicture" jdbcType="VARCHAR" />
+	    <result column="SPEstate" property="spestate" jdbcType="VARCHAR" />
+	    <result column="SPEtype" property="spetype" jdbcType="VARCHAR" />
+	    <result column="SPEdescribe" property="spedescribe" jdbcType="LONGVARCHAR" />
+    <collection property="shop" ofType="com.common.vo.ShopMapVo">
+    	<id column="SHOssthh_id" property="shossthhId" jdbcType="VARCHAR" />
+	    <result column="SHOname" property="shoname" jdbcType="VARCHAR" />
+	    <result column="SHOtype" property="shotype" jdbcType="VARCHAR" />
+	    <result column="SHOphone" property="shophone" jdbcType="VARCHAR" />
+	    <result column="SHOpicture" property="shopicture" jdbcType="VARCHAR" />
+	    <result column="SHOstate" property="shostate" jdbcType="VARCHAR" />
+	      <association property="map"  javaType="com.po.Tbmap">
+			<id column="Mid" property="mid"/>
+			<result column="Mlongitude" property="mlongitude"/>
+			<result column="Mlatitude" property="mlatitude"/>
+			<result column="Marea" property="marea"/>
+			<result column="Mroad" property="mroad"/>
+		</association>
+    </collection>
+  </resultMap>
+ <select id="selectSpecById" parameterType="String" resultMap="ResultMapWithShopMap">
+ <!-- select A.SPEssthh_id,A.SPEname,A.SPEprice,A.SPEdescribe,A.SPEpicture,A.SPEstate,A.SPEtype,
+		F.sHOssthh_id,F.SHOname,F.SHOtype,F.SHOphone,F.SHOpicture,F.SHOstate,F.Mid,F.Mlongitude,F.Mlatitude,F.Marea,F.Mroad
+ from tbspecialty A ,
+	(
+		SELECT * from
+		(SELECT B.SPEid,C.* from tbss B 
+			LEFT JOIN tbshop C ON B.SHOid = C.SHOssthh_id) D
+		LEFT JOIN tbmap E ON
+		D.SHOMid = E.Mid
+	) F
+ where A.SPEssthh_id = #{id} and SPEid = A.SPEssthh_id -->
+ select A.SPEssthh_id,A.SPEname,A.SPEprice,A.SPEdescribe,A.SPEpicture,A.SPEstate,A.SPEtype,
+		F.sHOssthh_id,F.SHOname,F.SHOtype,F.SHOphone,F.SHOpicture,F.SHOstate,F.Mid,F.Mlongitude,F.Mlatitude,F.Marea,F.Mroad
+ from tbspecialty A  LEFT JOIN
+	(
+		SELECT * from
+		(SELECT B.SPEid,C.* from tbss B  
+			LEFT JOIN tbshop C ON B.SHOid = C.SHOssthh_id
+			WHERE B.SPEid = #{id}
+		) D
+		LEFT JOIN tbmap E ON
+		D.SHOMid = E.Mid
+		
+	) F 
+ON	F.SPEid = A.SPEssthh_id
+ where A.SPEssthh_id = #{id}
+ </select>
+</mapper>

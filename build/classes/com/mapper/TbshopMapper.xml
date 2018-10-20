@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbshopMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbshop" >
+    <id column="SHOssthh_id" property="shossthhId" jdbcType="VARCHAR" />
+    <result column="SHOname" property="shoname" jdbcType="VARCHAR" />
+    <result column="SHOtype" property="shotype" jdbcType="VARCHAR" />
+    <result column="SHOphone" property="shophone" jdbcType="VARCHAR" />
+    <result column="SHOpicture" property="shopicture" jdbcType="VARCHAR" />
+    <result column="SHOstate" property="shostate" jdbcType="VARCHAR" />
+    <result column="SHOchange_time" property="shochangeTime" jdbcType="TIMESTAMP" />
+    <result column="SHOchanger" property="shochanger" jdbcType="VARCHAR" />
+    <result column="SHOMid" property="shomid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.Tbshop" extends="BaseResultMap" >
+    <result column="SHOdescribe" property="shodescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SHOssthh_id, SHOname, SHOtype, SHOphone, SHOpicture, SHOstate, SHOchange_time, SHOchanger, 
+    SHOMid
+  </sql>
+  <sql id="Blob_Column_List" >
+    SHOdescribe
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbshopExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbshop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbshopExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbshop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbshop
+    where SHOssthh_id = #{shossthhId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbshop
+    where SHOssthh_id = #{shossthhId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbshopExample" >
+    delete from tbshop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbshop" >
+    insert into tbshop (SHOssthh_id, SHOname, SHOtype, 
+      SHOphone, SHOpicture, SHOstate, 
+      SHOchange_time, SHOchanger, SHOMid, 
+      SHOdescribe)
+    values (#{shossthhId,jdbcType=VARCHAR}, #{shoname,jdbcType=VARCHAR}, #{shotype,jdbcType=VARCHAR}, 
+      #{shophone,jdbcType=VARCHAR}, #{shopicture,jdbcType=VARCHAR}, #{shostate,jdbcType=VARCHAR}, 
+      #{shochangeTime,jdbcType=TIMESTAMP}, #{shochanger,jdbcType=VARCHAR}, #{shomid,jdbcType=BIGINT}, 
+      #{shodescribe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbshop" >
+    insert into tbshop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shossthhId != null" >
+        SHOssthh_id,
+      </if>
+      <if test="shoname != null" >
+        SHOname,
+      </if>
+      <if test="shotype != null" >
+        SHOtype,
+      </if>
+      <if test="shophone != null" >
+        SHOphone,
+      </if>
+      <if test="shopicture != null" >
+        SHOpicture,
+      </if>
+      <if test="shostate != null" >
+        SHOstate,
+      </if>
+      <if test="shochangeTime != null" >
+        SHOchange_time,
+      </if>
+      <if test="shochanger != null" >
+        SHOchanger,
+      </if>
+      <if test="shomid != null" >
+        SHOMid,
+      </if>
+      <if test="shodescribe != null" >
+        SHOdescribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shossthhId != null" >
+        #{shossthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="shoname != null" >
+        #{shoname,jdbcType=VARCHAR},
+      </if>
+      <if test="shotype != null" >
+        #{shotype,jdbcType=VARCHAR},
+      </if>
+      <if test="shophone != null" >
+        #{shophone,jdbcType=VARCHAR},
+      </if>
+      <if test="shopicture != null" >
+        #{shopicture,jdbcType=VARCHAR},
+      </if>
+      <if test="shostate != null" >
+        #{shostate,jdbcType=VARCHAR},
+      </if>
+      <if test="shochangeTime != null" >
+        #{shochangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shochanger != null" >
+        #{shochanger,jdbcType=VARCHAR},
+      </if>
+      <if test="shomid != null" >
+        #{shomid,jdbcType=BIGINT},
+      </if>
+      <if test="shodescribe != null" >
+        #{shodescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbshopExample" resultType="java.lang.Integer" >
+    select count(*) from tbshop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbshop
+    <set >
+      <if test="record.shossthhId != null" >
+        SHOssthh_id = #{record.shossthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shoname != null" >
+        SHOname = #{record.shoname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shotype != null" >
+        SHOtype = #{record.shotype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shophone != null" >
+        SHOphone = #{record.shophone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopicture != null" >
+        SHOpicture = #{record.shopicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shostate != null" >
+        SHOstate = #{record.shostate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shochangeTime != null" >
+        SHOchange_time = #{record.shochangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shochanger != null" >
+        SHOchanger = #{record.shochanger,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shomid != null" >
+        SHOMid = #{record.shomid,jdbcType=BIGINT},
+      </if>
+      <if test="record.shodescribe != null" >
+        SHOdescribe = #{record.shodescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbshop
+    set SHOssthh_id = #{record.shossthhId,jdbcType=VARCHAR},
+      SHOname = #{record.shoname,jdbcType=VARCHAR},
+      SHOtype = #{record.shotype,jdbcType=VARCHAR},
+      SHOphone = #{record.shophone,jdbcType=VARCHAR},
+      SHOpicture = #{record.shopicture,jdbcType=VARCHAR},
+      SHOstate = #{record.shostate,jdbcType=VARCHAR},
+      SHOchange_time = #{record.shochangeTime,jdbcType=TIMESTAMP},
+      SHOchanger = #{record.shochanger,jdbcType=VARCHAR},
+      SHOMid = #{record.shomid,jdbcType=BIGINT},
+      SHOdescribe = #{record.shodescribe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbshop
+    set SHOssthh_id = #{record.shossthhId,jdbcType=VARCHAR},
+      SHOname = #{record.shoname,jdbcType=VARCHAR},
+      SHOtype = #{record.shotype,jdbcType=VARCHAR},
+      SHOphone = #{record.shophone,jdbcType=VARCHAR},
+      SHOpicture = #{record.shopicture,jdbcType=VARCHAR},
+      SHOstate = #{record.shostate,jdbcType=VARCHAR},
+      SHOchange_time = #{record.shochangeTime,jdbcType=TIMESTAMP},
+      SHOchanger = #{record.shochanger,jdbcType=VARCHAR},
+      SHOMid = #{record.shomid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbshop" >
+    update tbshop
+    <set >
+      <if test="shoname != null" >
+        SHOname = #{shoname,jdbcType=VARCHAR},
+      </if>
+      <if test="shotype != null" >
+        SHOtype = #{shotype,jdbcType=VARCHAR},
+      </if>
+      <if test="shophone != null" >
+        SHOphone = #{shophone,jdbcType=VARCHAR},
+      </if>
+      <if test="shopicture != null" >
+        SHOpicture = #{shopicture,jdbcType=VARCHAR},
+      </if>
+      <if test="shostate != null" >
+        SHOstate = #{shostate,jdbcType=VARCHAR},
+      </if>
+      <if test="shochangeTime != null" >
+        SHOchange_time = #{shochangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shochanger != null" >
+        SHOchanger = #{shochanger,jdbcType=VARCHAR},
+      </if>
+      <if test="shomid != null" >
+        SHOMid = #{shomid,jdbcType=BIGINT},
+      </if>
+      <if test="shodescribe != null" >
+        SHOdescribe = #{shodescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SHOssthh_id = #{shossthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.Tbshop" >
+    update tbshop
+    set SHOname = #{shoname,jdbcType=VARCHAR},
+      SHOtype = #{shotype,jdbcType=VARCHAR},
+      SHOphone = #{shophone,jdbcType=VARCHAR},
+      SHOpicture = #{shopicture,jdbcType=VARCHAR},
+      SHOstate = #{shostate,jdbcType=VARCHAR},
+      SHOchange_time = #{shochangeTime,jdbcType=TIMESTAMP},
+      SHOchanger = #{shochanger,jdbcType=VARCHAR},
+      SHOMid = #{shomid,jdbcType=BIGINT},
+      SHOdescribe = #{shodescribe,jdbcType=LONGVARCHAR}
+    where SHOssthh_id = #{shossthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbshop" >
+    update tbshop
+    set SHOname = #{shoname,jdbcType=VARCHAR},
+      SHOtype = #{shotype,jdbcType=VARCHAR},
+      SHOphone = #{shophone,jdbcType=VARCHAR},
+      SHOpicture = #{shopicture,jdbcType=VARCHAR},
+      SHOstate = #{shostate,jdbcType=VARCHAR},
+      SHOchange_time = #{shochangeTime,jdbcType=TIMESTAMP},
+      SHOchanger = #{shochanger,jdbcType=VARCHAR},
+      SHOMid = #{shomid,jdbcType=BIGINT}
+    where SHOssthh_id = #{shossthhId,jdbcType=VARCHAR}
+  </update>
+</mapper>

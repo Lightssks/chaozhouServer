@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbtouristsMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbtourists" >
+    <id column="TOUssthh_id" property="toussthhId" jdbcType="VARCHAR" />
+    <result column="TOUtitle" property="toutitle" jdbcType="VARCHAR" />
+    <result column="TOUpicture" property="toupicture" jdbcType="VARCHAR" />
+    <result column="TOUchange_time" property="touchangeTime" jdbcType="TIMESTAMP" />
+    <result column="TOUchanger" property="touchanger" jdbcType="VARCHAR" />
+    <result column="TOUstate" property="toustate" jdbcType="VARCHAR" />
+    <result column="TOUMid" property="toumid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.TbtouristsWithBLOBs" extends="BaseResultMap" >
+    <result column="TOUdescribe" property="toudescribe" jdbcType="LONGVARCHAR" />
+    <result column="TOUintroduce" property="touintroduce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TOUssthh_id, TOUtitle, TOUpicture, TOUchange_time, TOUchanger, TOUstate, TOUMid
+  </sql>
+  <sql id="Blob_Column_List" >
+    TOUdescribe, TOUintroduce
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbtouristsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbtourists
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbtouristsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbtourists
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbtourists
+    where TOUssthh_id = #{toussthhId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbtourists
+    where TOUssthh_id = #{toussthhId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbtouristsExample" >
+    delete from tbtourists
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.TbtouristsWithBLOBs" >
+    insert into tbtourists (TOUssthh_id, TOUtitle, TOUpicture, 
+      TOUchange_time, TOUchanger, TOUstate, 
+      TOUMid, TOUdescribe, TOUintroduce
+      )
+    values (#{toussthhId,jdbcType=VARCHAR}, #{toutitle,jdbcType=VARCHAR}, #{toupicture,jdbcType=VARCHAR}, 
+      #{touchangeTime,jdbcType=TIMESTAMP}, #{touchanger,jdbcType=VARCHAR}, #{toustate,jdbcType=VARCHAR}, 
+      #{toumid,jdbcType=BIGINT}, #{toudescribe,jdbcType=LONGVARCHAR}, #{touintroduce,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.TbtouristsWithBLOBs" >
+    insert into tbtourists
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="toussthhId != null" >
+        TOUssthh_id,
+      </if>
+      <if test="toutitle != null" >
+        TOUtitle,
+      </if>
+      <if test="toupicture != null" >
+        TOUpicture,
+      </if>
+      <if test="touchangeTime != null" >
+        TOUchange_time,
+      </if>
+      <if test="touchanger != null" >
+        TOUchanger,
+      </if>
+      <if test="toustate != null" >
+        TOUstate,
+      </if>
+      <if test="toumid != null" >
+        TOUMid,
+      </if>
+      <if test="toudescribe != null" >
+        TOUdescribe,
+      </if>
+      <if test="touintroduce != null" >
+        TOUintroduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="toussthhId != null" >
+        #{toussthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="toutitle != null" >
+        #{toutitle,jdbcType=VARCHAR},
+      </if>
+      <if test="toupicture != null" >
+        #{toupicture,jdbcType=VARCHAR},
+      </if>
+      <if test="touchangeTime != null" >
+        #{touchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="touchanger != null" >
+        #{touchanger,jdbcType=VARCHAR},
+      </if>
+      <if test="toustate != null" >
+        #{toustate,jdbcType=VARCHAR},
+      </if>
+      <if test="toumid != null" >
+        #{toumid,jdbcType=BIGINT},
+      </if>
+      <if test="toudescribe != null" >
+        #{toudescribe,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="touintroduce != null" >
+        #{touintroduce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbtouristsExample" resultType="java.lang.Integer" >
+    select count(*) from tbtourists
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbtourists
+    <set >
+      <if test="record.toussthhId != null" >
+        TOUssthh_id = #{record.toussthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toutitle != null" >
+        TOUtitle = #{record.toutitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toupicture != null" >
+        TOUpicture = #{record.toupicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.touchangeTime != null" >
+        TOUchange_time = #{record.touchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.touchanger != null" >
+        TOUchanger = #{record.touchanger,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toustate != null" >
+        TOUstate = #{record.toustate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toumid != null" >
+        TOUMid = #{record.toumid,jdbcType=BIGINT},
+      </if>
+      <if test="record.toudescribe != null" >
+        TOUdescribe = #{record.toudescribe,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.touintroduce != null" >
+        TOUintroduce = #{record.touintroduce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbtourists
+    set TOUssthh_id = #{record.toussthhId,jdbcType=VARCHAR},
+      TOUtitle = #{record.toutitle,jdbcType=VARCHAR},
+      TOUpicture = #{record.toupicture,jdbcType=VARCHAR},
+      TOUchange_time = #{record.touchangeTime,jdbcType=TIMESTAMP},
+      TOUchanger = #{record.touchanger,jdbcType=VARCHAR},
+      TOUstate = #{record.toustate,jdbcType=VARCHAR},
+      TOUMid = #{record.toumid,jdbcType=BIGINT},
+      TOUdescribe = #{record.toudescribe,jdbcType=LONGVARCHAR},
+      TOUintroduce = #{record.touintroduce,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbtourists
+    set TOUssthh_id = #{record.toussthhId,jdbcType=VARCHAR},
+      TOUtitle = #{record.toutitle,jdbcType=VARCHAR},
+      TOUpicture = #{record.toupicture,jdbcType=VARCHAR},
+      TOUchange_time = #{record.touchangeTime,jdbcType=TIMESTAMP},
+      TOUchanger = #{record.touchanger,jdbcType=VARCHAR},
+      TOUstate = #{record.toustate,jdbcType=VARCHAR},
+      TOUMid = #{record.toumid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.TbtouristsWithBLOBs" >
+    update tbtourists
+    <set >
+      <if test="toutitle != null" >
+        TOUtitle = #{toutitle,jdbcType=VARCHAR},
+      </if>
+      <if test="toupicture != null" >
+        TOUpicture = #{toupicture,jdbcType=VARCHAR},
+      </if>
+      <if test="touchangeTime != null" >
+        TOUchange_time = #{touchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="touchanger != null" >
+        TOUchanger = #{touchanger,jdbcType=VARCHAR},
+      </if>
+      <if test="toustate != null" >
+        TOUstate = #{toustate,jdbcType=VARCHAR},
+      </if>
+      <if test="toumid != null" >
+        TOUMid = #{toumid,jdbcType=BIGINT},
+      </if>
+      <if test="toudescribe != null" >
+        TOUdescribe = #{toudescribe,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="touintroduce != null" >
+        TOUintroduce = #{touintroduce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TOUssthh_id = #{toussthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.TbtouristsWithBLOBs" >
+    update tbtourists
+    set TOUtitle = #{toutitle,jdbcType=VARCHAR},
+      TOUpicture = #{toupicture,jdbcType=VARCHAR},
+      TOUchange_time = #{touchangeTime,jdbcType=TIMESTAMP},
+      TOUchanger = #{touchanger,jdbcType=VARCHAR},
+      TOUstate = #{toustate,jdbcType=VARCHAR},
+      TOUMid = #{toumid,jdbcType=BIGINT},
+      TOUdescribe = #{toudescribe,jdbcType=LONGVARCHAR},
+      TOUintroduce = #{touintroduce,jdbcType=LONGVARCHAR}
+    where TOUssthh_id = #{toussthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbtourists" >
+    update tbtourists
+    set TOUtitle = #{toutitle,jdbcType=VARCHAR},
+      TOUpicture = #{toupicture,jdbcType=VARCHAR},
+      TOUchange_time = #{touchangeTime,jdbcType=TIMESTAMP},
+      TOUchanger = #{touchanger,jdbcType=VARCHAR},
+      TOUstate = #{toustate,jdbcType=VARCHAR},
+      TOUMid = #{toumid,jdbcType=BIGINT}
+    where TOUssthh_id = #{toussthhId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- ============手打================= -->
+   <resultMap id="MyResultMap" type="com.common.vo.TourVo" extends="BaseResultMap" >
+    <result column="TOUdescribe" property="toudescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="MyResultMapWithMap" type="com.common.vo.TourVo" extends="MyResultMap" >
+    <result column="TOUdescribe" property="toudescribe" jdbcType="LONGVARCHAR" />
+		<association property="map"  javaType="com.po.Tbmap">
+			<id column="Mid" property="mid"/>
+			<result column="Mlongitude" property="mlongitude"/>
+			<result column="Mlatitude" property="mlatitude"/>
+			<result column="Marea" property="marea"/>
+			<result column="Mroad" property="mroad"/>
+		</association>
+  </resultMap>
+  
+  <select id="selectAllTourists" resultMap="MyResultMap" >
+	SELECT TOUssthh_id,TOUtitle,TOUdescribe,TOUpicture,TOUstate from tbtourists
+  </select>
+  
+  <select id="selectTouristsById" resultMap="MyResultMapWithMap" parameterType="String">
+  	SELECT TOUssthh_id,TOUtitle,TOUdescribe,TOUpicture,TOUstate, tbmap.* from tbtourists 
+	LEFT JOIN tbmap on tbtourists.TOUMid=tbmap.Mid where TOUssthh_id=#{id}
+  </select>
+</mapper>

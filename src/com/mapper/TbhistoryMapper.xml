@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbhistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbhistory" >
+    <id column="HISssthh_id" property="hisssthhId" jdbcType="VARCHAR" />
+    <result column="HIStitle" property="histitle" jdbcType="VARCHAR" />
+    <result column="HISpicture" property="hispicture" jdbcType="VARCHAR" />
+    <result column="HISchange_time" property="hischangeTime" jdbcType="TIMESTAMP" />
+    <result column="HISchanger" property="hischanger" jdbcType="VARCHAR" />
+    <result column="HISstate" property="hisstate" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.Tbhistory" extends="BaseResultMap" >
+    <result column="HISdescribe" property="hisdescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    HISssthh_id, HIStitle, HISpicture, HISchange_time, HISchanger, HISstate
+  </sql>
+  <sql id="Blob_Column_List" >
+    HISdescribe
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbhistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbhistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbhistory
+    where HISssthh_id = #{hisssthhId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbhistory
+    where HISssthh_id = #{hisssthhId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbhistoryExample" >
+    delete from tbhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbhistory" >
+    insert into tbhistory (HISssthh_id, HIStitle, HISpicture, 
+      HISchange_time, HISchanger, HISstate, 
+      HISdescribe)
+    values (#{hisssthhId,jdbcType=VARCHAR}, #{histitle,jdbcType=VARCHAR}, #{hispicture,jdbcType=VARCHAR}, 
+      #{hischangeTime,jdbcType=TIMESTAMP}, #{hischanger,jdbcType=VARCHAR}, #{hisstate,jdbcType=VARCHAR}, 
+      #{hisdescribe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbhistory" >
+    insert into tbhistory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hisssthhId != null" >
+        HISssthh_id,
+      </if>
+      <if test="histitle != null" >
+        HIStitle,
+      </if>
+      <if test="hispicture != null" >
+        HISpicture,
+      </if>
+      <if test="hischangeTime != null" >
+        HISchange_time,
+      </if>
+      <if test="hischanger != null" >
+        HISchanger,
+      </if>
+      <if test="hisstate != null" >
+        HISstate,
+      </if>
+      <if test="hisdescribe != null" >
+        HISdescribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hisssthhId != null" >
+        #{hisssthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="histitle != null" >
+        #{histitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hispicture != null" >
+        #{hispicture,jdbcType=VARCHAR},
+      </if>
+      <if test="hischangeTime != null" >
+        #{hischangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hischanger != null" >
+        #{hischanger,jdbcType=VARCHAR},
+      </if>
+      <if test="hisstate != null" >
+        #{hisstate,jdbcType=VARCHAR},
+      </if>
+      <if test="hisdescribe != null" >
+        #{hisdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbhistoryExample" resultType="java.lang.Integer" >
+    select count(*) from tbhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbhistory
+    <set >
+      <if test="record.hisssthhId != null" >
+        HISssthh_id = #{record.hisssthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.histitle != null" >
+        HIStitle = #{record.histitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hispicture != null" >
+        HISpicture = #{record.hispicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hischangeTime != null" >
+        HISchange_time = #{record.hischangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hischanger != null" >
+        HISchanger = #{record.hischanger,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hisstate != null" >
+        HISstate = #{record.hisstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hisdescribe != null" >
+        HISdescribe = #{record.hisdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbhistory
+    set HISssthh_id = #{record.hisssthhId,jdbcType=VARCHAR},
+      HIStitle = #{record.histitle,jdbcType=VARCHAR},
+      HISpicture = #{record.hispicture,jdbcType=VARCHAR},
+      HISchange_time = #{record.hischangeTime,jdbcType=TIMESTAMP},
+      HISchanger = #{record.hischanger,jdbcType=VARCHAR},
+      HISstate = #{record.hisstate,jdbcType=VARCHAR},
+      HISdescribe = #{record.hisdescribe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbhistory
+    set HISssthh_id = #{record.hisssthhId,jdbcType=VARCHAR},
+      HIStitle = #{record.histitle,jdbcType=VARCHAR},
+      HISpicture = #{record.hispicture,jdbcType=VARCHAR},
+      HISchange_time = #{record.hischangeTime,jdbcType=TIMESTAMP},
+      HISchanger = #{record.hischanger,jdbcType=VARCHAR},
+      HISstate = #{record.hisstate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbhistory" >
+    update tbhistory
+    <set >
+      <if test="histitle != null" >
+        HIStitle = #{histitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hispicture != null" >
+        HISpicture = #{hispicture,jdbcType=VARCHAR},
+      </if>
+      <if test="hischangeTime != null" >
+        HISchange_time = #{hischangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hischanger != null" >
+        HISchanger = #{hischanger,jdbcType=VARCHAR},
+      </if>
+      <if test="hisstate != null" >
+        HISstate = #{hisstate,jdbcType=VARCHAR},
+      </if>
+      <if test="hisdescribe != null" >
+        HISdescribe = #{hisdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where HISssthh_id = #{hisssthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.Tbhistory" >
+    update tbhistory
+    set HIStitle = #{histitle,jdbcType=VARCHAR},
+      HISpicture = #{hispicture,jdbcType=VARCHAR},
+      HISchange_time = #{hischangeTime,jdbcType=TIMESTAMP},
+      HISchanger = #{hischanger,jdbcType=VARCHAR},
+      HISstate = #{hisstate,jdbcType=VARCHAR},
+      HISdescribe = #{hisdescribe,jdbcType=LONGVARCHAR}
+    where HISssthh_id = #{hisssthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbhistory" >
+    update tbhistory
+    set HIStitle = #{histitle,jdbcType=VARCHAR},
+      HISpicture = #{hispicture,jdbcType=VARCHAR},
+      HISchange_time = #{hischangeTime,jdbcType=TIMESTAMP},
+      HISchanger = #{hischanger,jdbcType=VARCHAR},
+      HISstate = #{hisstate,jdbcType=VARCHAR}
+    where HISssthh_id = #{hisssthhId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- ===================手打================= -->
+  <resultMap id="MyResultMap" type="com.common.vo.HistoryVo">
+   <id column="HISssthh_id" property="hisssthhId" jdbcType="VARCHAR" />
+    <result column="HIStitle" property="histitle" jdbcType="VARCHAR" />
+    <result column="HISpicture" property="hispicture" jdbcType="VARCHAR" />
+    <result column="HISstate" property="hisstate" jdbcType="VARCHAR" />
+    <result column="HISdescribe" property="hisdescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="selectAllHistory" resultMap="MyResultMap">
+  	SELECT HISssthh_id,HIStitle,HISdescribe,HISpicture,HISstate FROM tbhistory
+  </select>
+  
+  <select id="selectHistoryById" parameterType="String" resultMap="MyResultMap">
+  	SELECT HISssthh_id,HIStitle,HISdescribe,HISpicture,HISstate FROM tbhistory WHERE HISssthh_id = #{id}
+  </select>
+</mapper>

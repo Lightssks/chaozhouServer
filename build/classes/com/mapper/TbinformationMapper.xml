@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbinformationMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbinformation" >
+    <id column="INTid" property="intid" jdbcType="BIGINT" />
+    <result column="other_id" property="otherId" jdbcType="BIGINT" />
+    <result column="INTstate" property="intstate" jdbcType="VARCHAR" />
+    <result column="INTtime" property="inttime" jdbcType="TIMESTAMP" />
+    <result column="INTUid" property="intuid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.Tbinformation" extends="BaseResultMap" >
+    <result column="INTtext" property="inttext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    INTid, other_id, INTstate, INTtime, INTUid
+  </sql>
+  <sql id="Blob_Column_List" >
+    INTtext
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbinformationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbinformation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbinformationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbinformation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbinformation
+    where INTid = #{intid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbinformation
+    where INTid = #{intid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbinformationExample" >
+    delete from tbinformation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbinformation" >
+    insert into tbinformation (INTid, other_id, INTstate, 
+      INTtime, INTUid, INTtext
+      )
+    values (#{intid,jdbcType=BIGINT}, #{otherId,jdbcType=BIGINT}, #{intstate,jdbcType=VARCHAR}, 
+      #{inttime,jdbcType=TIMESTAMP}, #{intuid,jdbcType=BIGINT}, #{inttext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbinformation" >
+    insert into tbinformation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        INTid,
+      </if>
+      <if test="otherId != null" >
+        other_id,
+      </if>
+      <if test="intstate != null" >
+        INTstate,
+      </if>
+      <if test="inttime != null" >
+        INTtime,
+      </if>
+      <if test="intuid != null" >
+        INTUid,
+      </if>
+      <if test="inttext != null" >
+        INTtext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        #{intid,jdbcType=BIGINT},
+      </if>
+      <if test="otherId != null" >
+        #{otherId,jdbcType=BIGINT},
+      </if>
+      <if test="intstate != null" >
+        #{intstate,jdbcType=VARCHAR},
+      </if>
+      <if test="inttime != null" >
+        #{inttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intuid != null" >
+        #{intuid,jdbcType=BIGINT},
+      </if>
+      <if test="inttext != null" >
+        #{inttext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbinformationExample" resultType="java.lang.Integer" >
+    select count(*) from tbinformation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbinformation
+    <set >
+      <if test="record.intid != null" >
+        INTid = #{record.intid,jdbcType=BIGINT},
+      </if>
+      <if test="record.otherId != null" >
+        other_id = #{record.otherId,jdbcType=BIGINT},
+      </if>
+      <if test="record.intstate != null" >
+        INTstate = #{record.intstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inttime != null" >
+        INTtime = #{record.inttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.intuid != null" >
+        INTUid = #{record.intuid,jdbcType=BIGINT},
+      </if>
+      <if test="record.inttext != null" >
+        INTtext = #{record.inttext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbinformation
+    set INTid = #{record.intid,jdbcType=BIGINT},
+      other_id = #{record.otherId,jdbcType=BIGINT},
+      INTstate = #{record.intstate,jdbcType=VARCHAR},
+      INTtime = #{record.inttime,jdbcType=TIMESTAMP},
+      INTUid = #{record.intuid,jdbcType=BIGINT},
+      INTtext = #{record.inttext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbinformation
+    set INTid = #{record.intid,jdbcType=BIGINT},
+      other_id = #{record.otherId,jdbcType=BIGINT},
+      INTstate = #{record.intstate,jdbcType=VARCHAR},
+      INTtime = #{record.inttime,jdbcType=TIMESTAMP},
+      INTUid = #{record.intuid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbinformation" >
+    update tbinformation
+    <set >
+      <if test="otherId != null" >
+        other_id = #{otherId,jdbcType=BIGINT},
+      </if>
+      <if test="intstate != null" >
+        INTstate = #{intstate,jdbcType=VARCHAR},
+      </if>
+      <if test="inttime != null" >
+        INTtime = #{inttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intuid != null" >
+        INTUid = #{intuid,jdbcType=BIGINT},
+      </if>
+      <if test="inttext != null" >
+        INTtext = #{inttext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where INTid = #{intid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.Tbinformation" >
+    update tbinformation
+    set other_id = #{otherId,jdbcType=BIGINT},
+      INTstate = #{intstate,jdbcType=VARCHAR},
+      INTtime = #{inttime,jdbcType=TIMESTAMP},
+      INTUid = #{intuid,jdbcType=BIGINT},
+      INTtext = #{inttext,jdbcType=LONGVARCHAR}
+    where INTid = #{intid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbinformation" >
+    update tbinformation
+    set other_id = #{otherId,jdbcType=BIGINT},
+      INTstate = #{intstate,jdbcType=VARCHAR},
+      INTtime = #{inttime,jdbcType=TIMESTAMP},
+      INTUid = #{intuid,jdbcType=BIGINT}
+    where INTid = #{intid,jdbcType=BIGINT}
+  </update>
+</mapper>

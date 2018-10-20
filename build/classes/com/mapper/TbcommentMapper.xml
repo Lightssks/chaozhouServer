@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbcommentMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbcomment" >
+    <id column="Cid" property="cid" jdbcType="BIGINT" />
+    <result column="CUid" property="cuid" jdbcType="BIGINT" />
+    <result column="Ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="Cssthh_id" property="cssthhId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.Tbcomment" extends="BaseResultMap" >
+    <result column="Ctext" property="ctext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Cid, CUid, Ctime, Cssthh_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    Ctext
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbcommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbcomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbcommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbcomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbcomment
+    where Cid = #{cid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbcomment
+    where Cid = #{cid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbcommentExample" >
+    delete from tbcomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbcomment" >
+    insert into tbcomment (Cid, CUid, Ctime, 
+      Cssthh_id, Ctext)
+    values (#{cid,jdbcType=BIGINT}, #{cuid,jdbcType=BIGINT}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{cssthhId,jdbcType=VARCHAR}, #{ctext,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbcomment" >
+    insert into tbcomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        Cid,
+      </if>
+      <if test="cuid != null" >
+        CUid,
+      </if>
+      <if test="ctime != null" >
+        Ctime,
+      </if>
+      <if test="cssthhId != null" >
+        Cssthh_id,
+      </if>
+      <if test="ctext != null" >
+        Ctext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="cuid != null" >
+        #{cuid,jdbcType=BIGINT},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cssthhId != null" >
+        #{cssthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="ctext != null" >
+        #{ctext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbcommentExample" resultType="java.lang.Integer" >
+    select count(*) from tbcomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbcomment
+    <set >
+      <if test="record.cid != null" >
+        Cid = #{record.cid,jdbcType=BIGINT},
+      </if>
+      <if test="record.cuid != null" >
+        CUid = #{record.cuid,jdbcType=BIGINT},
+      </if>
+      <if test="record.ctime != null" >
+        Ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cssthhId != null" >
+        Cssthh_id = #{record.cssthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctext != null" >
+        Ctext = #{record.ctext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbcomment
+    set Cid = #{record.cid,jdbcType=BIGINT},
+      CUid = #{record.cuid,jdbcType=BIGINT},
+      Ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      Cssthh_id = #{record.cssthhId,jdbcType=VARCHAR},
+      Ctext = #{record.ctext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbcomment
+    set Cid = #{record.cid,jdbcType=BIGINT},
+      CUid = #{record.cuid,jdbcType=BIGINT},
+      Ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      Cssthh_id = #{record.cssthhId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbcomment" >
+    update tbcomment
+    <set >
+      <if test="cuid != null" >
+        CUid = #{cuid,jdbcType=BIGINT},
+      </if>
+      <if test="ctime != null" >
+        Ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cssthhId != null" >
+        Cssthh_id = #{cssthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="ctext != null" >
+        Ctext = #{ctext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Cid = #{cid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.Tbcomment" >
+    update tbcomment
+    set CUid = #{cuid,jdbcType=BIGINT},
+      Ctime = #{ctime,jdbcType=TIMESTAMP},
+      Cssthh_id = #{cssthhId,jdbcType=VARCHAR},
+      Ctext = #{ctext,jdbcType=LONGVARCHAR}
+    where Cid = #{cid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbcomment" >
+    update tbcomment
+    set CUid = #{cuid,jdbcType=BIGINT},
+      Ctime = #{ctime,jdbcType=TIMESTAMP},
+      Cssthh_id = #{cssthhId,jdbcType=VARCHAR}
+    where Cid = #{cid,jdbcType=BIGINT}
+  </update>
+  
+    <!-- =============手打============ -->
+    <resultMap id="ResultMapWithUser" type="com.common.vo.UserCommentsVo" extends="ResultMapWithBLOBs" >
+   	 <result column="Uname" property="uname" jdbcType="VARCHAR" />
+   	 <result column="head" property="head" jdbcType="VARCHAR" />
+  	</resultMap>
+    
+  <select id="selectCommentsByPage" parameterType="com.common.vo.PageVo" resultMap="ResultMapWithUser">
+  	select * from tbcomment 
+  	LEFT JOIN tbuser 
+  	on tbcomment.CUid=tbuser.Uid  
+  	where Cssthh_id = #{id} and Cid >#{cursor} 
+  	limit #{pageSize}
+  </select>
+</mapper>

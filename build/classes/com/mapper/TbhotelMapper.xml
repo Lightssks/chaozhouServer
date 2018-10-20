@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbhotelMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbhotel" >
+    <id column="HOTssthh_id" property="hotssthhId" jdbcType="VARCHAR" />
+    <result column="HOTname" property="hotname" jdbcType="VARCHAR" />
+    <result column="HOTtype" property="hottype" jdbcType="VARCHAR" />
+    <result column="HOTphone" property="hotphone" jdbcType="VARCHAR" />
+    <result column="HOTpicture" property="hotpicture" jdbcType="VARCHAR" />
+    <result column="HOTstate" property="hotstate" jdbcType="VARCHAR" />
+    <result column="HOTchange_time" property="hotchangeTime" jdbcType="TIMESTAMP" />
+    <result column="HOTchanger" property="hotchanger" jdbcType="VARCHAR" />
+    <result column="HOTMid" property="hotmid" jdbcType="BIGINT" />
+    <result column="HOTroom" property="hotroom" jdbcType="VARCHAR" />
+    <result column="HOTdevice" property="hotdevice" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.Tbhotel" extends="BaseResultMap" >
+    <result column="HOTdescribe" property="hotdescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    HOTssthh_id, HOTname, HOTtype, HOTphone, HOTpicture, HOTstate, HOTchange_time, HOTchanger, 
+    HOTMid, HOTroom, HOTdevice
+  </sql>
+  <sql id="Blob_Column_List" >
+    HOTdescribe
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbhotelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbhotel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbhotelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbhotel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbhotel
+    where HOTssthh_id = #{hotssthhId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbhotel
+    where HOTssthh_id = #{hotssthhId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbhotelExample" >
+    delete from tbhotel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbhotel" >
+    insert into tbhotel (HOTssthh_id, HOTname, HOTtype, 
+      HOTphone, HOTpicture, HOTstate, 
+      HOTchange_time, HOTchanger, HOTMid, 
+      HOTroom, HOTdevice, HOTdescribe
+      )
+    values (#{hotssthhId,jdbcType=VARCHAR}, #{hotname,jdbcType=VARCHAR}, #{hottype,jdbcType=VARCHAR}, 
+      #{hotphone,jdbcType=VARCHAR}, #{hotpicture,jdbcType=VARCHAR}, #{hotstate,jdbcType=VARCHAR}, 
+      #{hotchangeTime,jdbcType=TIMESTAMP}, #{hotchanger,jdbcType=VARCHAR}, #{hotmid,jdbcType=BIGINT}, 
+      #{hotroom,jdbcType=VARCHAR}, #{hotdevice,jdbcType=VARCHAR}, #{hotdescribe,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbhotel" >
+    insert into tbhotel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotssthhId != null" >
+        HOTssthh_id,
+      </if>
+      <if test="hotname != null" >
+        HOTname,
+      </if>
+      <if test="hottype != null" >
+        HOTtype,
+      </if>
+      <if test="hotphone != null" >
+        HOTphone,
+      </if>
+      <if test="hotpicture != null" >
+        HOTpicture,
+      </if>
+      <if test="hotstate != null" >
+        HOTstate,
+      </if>
+      <if test="hotchangeTime != null" >
+        HOTchange_time,
+      </if>
+      <if test="hotchanger != null" >
+        HOTchanger,
+      </if>
+      <if test="hotmid != null" >
+        HOTMid,
+      </if>
+      <if test="hotroom != null" >
+        HOTroom,
+      </if>
+      <if test="hotdevice != null" >
+        HOTdevice,
+      </if>
+      <if test="hotdescribe != null" >
+        HOTdescribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotssthhId != null" >
+        #{hotssthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="hotname != null" >
+        #{hotname,jdbcType=VARCHAR},
+      </if>
+      <if test="hottype != null" >
+        #{hottype,jdbcType=VARCHAR},
+      </if>
+      <if test="hotphone != null" >
+        #{hotphone,jdbcType=VARCHAR},
+      </if>
+      <if test="hotpicture != null" >
+        #{hotpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="hotstate != null" >
+        #{hotstate,jdbcType=VARCHAR},
+      </if>
+      <if test="hotchangeTime != null" >
+        #{hotchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hotchanger != null" >
+        #{hotchanger,jdbcType=VARCHAR},
+      </if>
+      <if test="hotmid != null" >
+        #{hotmid,jdbcType=BIGINT},
+      </if>
+      <if test="hotroom != null" >
+        #{hotroom,jdbcType=VARCHAR},
+      </if>
+      <if test="hotdevice != null" >
+        #{hotdevice,jdbcType=VARCHAR},
+      </if>
+      <if test="hotdescribe != null" >
+        #{hotdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbhotelExample" resultType="java.lang.Integer" >
+    select count(*) from tbhotel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbhotel
+    <set >
+      <if test="record.hotssthhId != null" >
+        HOTssthh_id = #{record.hotssthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotname != null" >
+        HOTname = #{record.hotname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hottype != null" >
+        HOTtype = #{record.hottype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotphone != null" >
+        HOTphone = #{record.hotphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotpicture != null" >
+        HOTpicture = #{record.hotpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotstate != null" >
+        HOTstate = #{record.hotstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotchangeTime != null" >
+        HOTchange_time = #{record.hotchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hotchanger != null" >
+        HOTchanger = #{record.hotchanger,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotmid != null" >
+        HOTMid = #{record.hotmid,jdbcType=BIGINT},
+      </if>
+      <if test="record.hotroom != null" >
+        HOTroom = #{record.hotroom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotdevice != null" >
+        HOTdevice = #{record.hotdevice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotdescribe != null" >
+        HOTdescribe = #{record.hotdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbhotel
+    set HOTssthh_id = #{record.hotssthhId,jdbcType=VARCHAR},
+      HOTname = #{record.hotname,jdbcType=VARCHAR},
+      HOTtype = #{record.hottype,jdbcType=VARCHAR},
+      HOTphone = #{record.hotphone,jdbcType=VARCHAR},
+      HOTpicture = #{record.hotpicture,jdbcType=VARCHAR},
+      HOTstate = #{record.hotstate,jdbcType=VARCHAR},
+      HOTchange_time = #{record.hotchangeTime,jdbcType=TIMESTAMP},
+      HOTchanger = #{record.hotchanger,jdbcType=VARCHAR},
+      HOTMid = #{record.hotmid,jdbcType=BIGINT},
+      HOTroom = #{record.hotroom,jdbcType=VARCHAR},
+      HOTdevice = #{record.hotdevice,jdbcType=VARCHAR},
+      HOTdescribe = #{record.hotdescribe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbhotel
+    set HOTssthh_id = #{record.hotssthhId,jdbcType=VARCHAR},
+      HOTname = #{record.hotname,jdbcType=VARCHAR},
+      HOTtype = #{record.hottype,jdbcType=VARCHAR},
+      HOTphone = #{record.hotphone,jdbcType=VARCHAR},
+      HOTpicture = #{record.hotpicture,jdbcType=VARCHAR},
+      HOTstate = #{record.hotstate,jdbcType=VARCHAR},
+      HOTchange_time = #{record.hotchangeTime,jdbcType=TIMESTAMP},
+      HOTchanger = #{record.hotchanger,jdbcType=VARCHAR},
+      HOTMid = #{record.hotmid,jdbcType=BIGINT},
+      HOTroom = #{record.hotroom,jdbcType=VARCHAR},
+      HOTdevice = #{record.hotdevice,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbhotel" >
+    update tbhotel
+    <set >
+      <if test="hotname != null" >
+        HOTname = #{hotname,jdbcType=VARCHAR},
+      </if>
+      <if test="hottype != null" >
+        HOTtype = #{hottype,jdbcType=VARCHAR},
+      </if>
+      <if test="hotphone != null" >
+        HOTphone = #{hotphone,jdbcType=VARCHAR},
+      </if>
+      <if test="hotpicture != null" >
+        HOTpicture = #{hotpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="hotstate != null" >
+        HOTstate = #{hotstate,jdbcType=VARCHAR},
+      </if>
+      <if test="hotchangeTime != null" >
+        HOTchange_time = #{hotchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hotchanger != null" >
+        HOTchanger = #{hotchanger,jdbcType=VARCHAR},
+      </if>
+      <if test="hotmid != null" >
+        HOTMid = #{hotmid,jdbcType=BIGINT},
+      </if>
+      <if test="hotroom != null" >
+        HOTroom = #{hotroom,jdbcType=VARCHAR},
+      </if>
+      <if test="hotdevice != null" >
+        HOTdevice = #{hotdevice,jdbcType=VARCHAR},
+      </if>
+      <if test="hotdescribe != null" >
+        HOTdescribe = #{hotdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where HOTssthh_id = #{hotssthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.Tbhotel" >
+    update tbhotel
+    set HOTname = #{hotname,jdbcType=VARCHAR},
+      HOTtype = #{hottype,jdbcType=VARCHAR},
+      HOTphone = #{hotphone,jdbcType=VARCHAR},
+      HOTpicture = #{hotpicture,jdbcType=VARCHAR},
+      HOTstate = #{hotstate,jdbcType=VARCHAR},
+      HOTchange_time = #{hotchangeTime,jdbcType=TIMESTAMP},
+      HOTchanger = #{hotchanger,jdbcType=VARCHAR},
+      HOTMid = #{hotmid,jdbcType=BIGINT},
+      HOTroom = #{hotroom,jdbcType=VARCHAR},
+      HOTdevice = #{hotdevice,jdbcType=VARCHAR},
+      HOTdescribe = #{hotdescribe,jdbcType=LONGVARCHAR}
+    where HOTssthh_id = #{hotssthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbhotel" >
+    update tbhotel
+    set HOTname = #{hotname,jdbcType=VARCHAR},
+      HOTtype = #{hottype,jdbcType=VARCHAR},
+      HOTphone = #{hotphone,jdbcType=VARCHAR},
+      HOTpicture = #{hotpicture,jdbcType=VARCHAR},
+      HOTstate = #{hotstate,jdbcType=VARCHAR},
+      HOTchange_time = #{hotchangeTime,jdbcType=TIMESTAMP},
+      HOTchanger = #{hotchanger,jdbcType=VARCHAR},
+      HOTMid = #{hotmid,jdbcType=BIGINT},
+      HOTroom = #{hotroom,jdbcType=VARCHAR},
+      HOTdevice = #{hotdevice,jdbcType=VARCHAR}
+    where HOTssthh_id = #{hotssthhId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- ============手打================== -->
+    <resultMap id="ListResultMap" type="com.common.vo.HotelVo" >
+    <id column="HOTssthh_id" property="hotssthhId" jdbcType="VARCHAR" />
+    <result column="HOTname" property="hotname" jdbcType="VARCHAR" />
+    <result column="HOTpicture" property="hotpicture" jdbcType="VARCHAR" />
+    <result column="HOTphone" property="hotphone" jdbcType="VARCHAR" />
+    <result column="HOTstate" property="hotstate" jdbcType="VARCHAR" />
+    <association property="map"  javaType="com.po.Tbmap">
+			<id column="Mid" property="mid"/>
+			<result column="Mlongitude" property="mlongitude"/>
+			<result column="Mlatitude" property="mlatitude"/>
+			<result column="Marea" property="marea"/>
+			<result column="Mroad" property="mroad"/>
+	</association>
+  </resultMap>
+  <resultMap id="ResultMapWithAdress" type="com.common.vo.HotelVo" extends="ResultMapWithBLOBs" >
+    <association property="map"  javaType="com.po.Tbmap">
+			<id column="Mid" property="mid"/>
+			<result column="Mlongitude" property="mlongitude"/>
+			<result column="Mlatitude" property="mlatitude"/>
+			<result column="Marea" property="marea"/>
+			<result column="Mroad" property="mroad"/>
+	</association>
+  </resultMap>
+  <select id="selectHotelList" resultMap="ListResultMap">
+  	select HOTssthh_id,HOTname, HOTphone,HOTstate, HOTpicture, B.* 
+  	from tbhotel A 
+  	LEFT JOIN tbmap B 
+  	on A.HOTMid = B.Mid
+  </select>
+  
+  <select id="selectHotelListByType" parameterType="String" resultMap="ListResultMap">
+  	select HOTssthh_id,HOTname, HOTphone,HOTstate, HOTpicture, B.*
+  	from tbhotel A 
+  	LEFT JOIN tbmap B 
+  	on A.HOTMid = B.Mid
+  	where A.HOTtype = #{type}
+  </select>
+  
+  <select id="selectHotelById" parameterType="String" resultMap="ResultMapWithAdress">
+  	select A.*, B.*
+  	from tbhotel A 
+  	LEFT JOIN tbmap B 
+  	on A.HOTMid = B.Mid
+  	where A.HOTssthh_id = #{id}
+  </select>
+</mapper>

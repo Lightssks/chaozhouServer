@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbshareMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbshare" >
+    <id column="SHAssthh_id" property="shassthhId" jdbcType="VARCHAR" />
+    <result column="SHAUid" property="shauid" jdbcType="BIGINT" />
+    <result column="SHApicture" property="shapicture" jdbcType="VARCHAR" />
+    <result column="SHAhit" property="shahit" jdbcType="INTEGER" />
+    <result column="SHAtime" property="shatime" jdbcType="TIMESTAMP" />
+    <result column="SHAaddress" property="shaaddress" jdbcType="VARCHAR" />
+    <result column="SHApower" property="shapower" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.po.Tbshare" extends="BaseResultMap" >
+    <result column="SHAtext" property="shatext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SHAssthh_id, SHAUid, SHApicture, SHAhit, SHAtime, SHAaddress, SHApower
+  </sql>
+  <sql id="Blob_Column_List" >
+    SHAtext
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.po.TbshareExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbshareExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbshare
+    where SHAssthh_id = #{shassthhId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbshare
+    where SHAssthh_id = #{shassthhId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbshareExample" >
+    delete from tbshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbshare" >
+    insert into tbshare (SHAssthh_id, SHAUid, SHApicture, 
+      SHAhit, SHAtime, SHAaddress, 
+      SHApower, SHAtext)
+    values (#{shassthhId,jdbcType=VARCHAR}, #{shauid,jdbcType=BIGINT}, #{shapicture,jdbcType=VARCHAR}, 
+      #{shahit,jdbcType=INTEGER}, #{shatime,jdbcType=TIMESTAMP}, #{shaaddress,jdbcType=VARCHAR}, 
+      #{shapower,jdbcType=VARCHAR}, #{shatext,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbshare" >
+    insert into tbshare
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shassthhId != null" >
+        SHAssthh_id,
+      </if>
+      <if test="shauid != null" >
+        SHAUid,
+      </if>
+      <if test="shapicture != null" >
+        SHApicture,
+      </if>
+      <if test="shahit != null" >
+        SHAhit,
+      </if>
+      <if test="shatime != null" >
+        SHAtime,
+      </if>
+      <if test="shaaddress != null" >
+        SHAaddress,
+      </if>
+      <if test="shapower != null" >
+        SHApower,
+      </if>
+      <if test="shatext != null" >
+        SHAtext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shassthhId != null" >
+        #{shassthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="shauid != null" >
+        #{shauid,jdbcType=BIGINT},
+      </if>
+      <if test="shapicture != null" >
+        #{shapicture,jdbcType=VARCHAR},
+      </if>
+      <if test="shahit != null" >
+        #{shahit,jdbcType=INTEGER},
+      </if>
+      <if test="shatime != null" >
+        #{shatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shaaddress != null" >
+        #{shaaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shapower != null" >
+        #{shapower,jdbcType=VARCHAR},
+      </if>
+      <if test="shatext != null" >
+        #{shatext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbshareExample" resultType="java.lang.Integer" >
+    select count(*) from tbshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbshare
+    <set >
+      <if test="record.shassthhId != null" >
+        SHAssthh_id = #{record.shassthhId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shauid != null" >
+        SHAUid = #{record.shauid,jdbcType=BIGINT},
+      </if>
+      <if test="record.shapicture != null" >
+        SHApicture = #{record.shapicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shahit != null" >
+        SHAhit = #{record.shahit,jdbcType=INTEGER},
+      </if>
+      <if test="record.shatime != null" >
+        SHAtime = #{record.shatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shaaddress != null" >
+        SHAaddress = #{record.shaaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shapower != null" >
+        SHApower = #{record.shapower,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shatext != null" >
+        SHAtext = #{record.shatext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbshare
+    set SHAssthh_id = #{record.shassthhId,jdbcType=VARCHAR},
+      SHAUid = #{record.shauid,jdbcType=BIGINT},
+      SHApicture = #{record.shapicture,jdbcType=VARCHAR},
+      SHAhit = #{record.shahit,jdbcType=INTEGER},
+      SHAtime = #{record.shatime,jdbcType=TIMESTAMP},
+      SHAaddress = #{record.shaaddress,jdbcType=VARCHAR},
+      SHApower = #{record.shapower,jdbcType=VARCHAR},
+      SHAtext = #{record.shatext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbshare
+    set SHAssthh_id = #{record.shassthhId,jdbcType=VARCHAR},
+      SHAUid = #{record.shauid,jdbcType=BIGINT},
+      SHApicture = #{record.shapicture,jdbcType=VARCHAR},
+      SHAhit = #{record.shahit,jdbcType=INTEGER},
+      SHAtime = #{record.shatime,jdbcType=TIMESTAMP},
+      SHAaddress = #{record.shaaddress,jdbcType=VARCHAR},
+      SHApower = #{record.shapower,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbshare" >
+    update tbshare
+    <set >
+      <if test="shauid != null" >
+        SHAUid = #{shauid,jdbcType=BIGINT},
+      </if>
+      <if test="shapicture != null" >
+        SHApicture = #{shapicture,jdbcType=VARCHAR},
+      </if>
+      <if test="shahit != null" >
+        SHAhit = #{shahit,jdbcType=INTEGER},
+      </if>
+      <if test="shatime != null" >
+        SHAtime = #{shatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shaaddress != null" >
+        SHAaddress = #{shaaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shapower != null" >
+        SHApower = #{shapower,jdbcType=VARCHAR},
+      </if>
+      <if test="shatext != null" >
+        SHAtext = #{shatext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SHAssthh_id = #{shassthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.po.Tbshare" >
+    update tbshare
+    set SHAUid = #{shauid,jdbcType=BIGINT},
+      SHApicture = #{shapicture,jdbcType=VARCHAR},
+      SHAhit = #{shahit,jdbcType=INTEGER},
+      SHAtime = #{shatime,jdbcType=TIMESTAMP},
+      SHAaddress = #{shaaddress,jdbcType=VARCHAR},
+      SHApower = #{shapower,jdbcType=VARCHAR},
+      SHAtext = #{shatext,jdbcType=LONGVARCHAR}
+    where SHAssthh_id = #{shassthhId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbshare" >
+    update tbshare
+    set SHAUid = #{shauid,jdbcType=BIGINT},
+      SHApicture = #{shapicture,jdbcType=VARCHAR},
+      SHAhit = #{shahit,jdbcType=INTEGER},
+      SHAtime = #{shatime,jdbcType=TIMESTAMP},
+      SHAaddress = #{shaaddress,jdbcType=VARCHAR},
+      SHApower = #{shapower,jdbcType=VARCHAR}
+    where SHAssthh_id = #{shassthhId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- ==========手打=================== -->
+  <resultMap id="MyShareResult" type="com.common.vo.ShareVo" extends="BaseResultMap" >
+  	<result column="Uname" property="uname" jdbcType="VARCHAR" />
+  	<result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="SHAtext" property="shatext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="BaseInfoResult" type="com.common.vo.InfoVo" >
+   	<id column="SHAUid" property="uid" jdbcType="BIGINT" />
+    <result column="Uname" property="uname" jdbcType="VARCHAR" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="SHAtext" property="shareText" jdbcType="LONGVARCHAR" />
+  </resultMap>
+   <resultMap id="MyInfoResult" type="com.common.vo.InfoVo" extends="BaseInfoResult" >
+  	<result column="Ctext" property="comments" jdbcType="LONGVARCHAR" />
+  	<result column="Uid" property="sentId" jdbcType="BIGINT" />
+  	<result column="Ctime" property="time" jdbcType="TIMESTAMP" />
+  	<result column="SHAssthh_id" property="shareId" jdbcType="VARCHAR" />
+  	
+  </resultMap>
+  
+  
+  <select id="selectAllShare" parameterType="com.common.vo.PageVo" resultMap="MyShareResult">
+  	SELECT tbshare.*,tbuser.Uname,tbuser.head from tbshare 
+	LEFT JOIN tbuser
+	ON tbshare.SHAUid = tbuser.Uid
+	WHERE tbshare.SHAssthh_id>#{cursor} LIMIT #{pageSize}
+  </select>
+  
+  <select id="selectAllShareById" parameterType="com.common.vo.PageVo" resultMap="MyShareResult">
+	SELECT A.*,tbuser.Uname,tbuser.head from
+	(SELECT * from tbshare where SHAUid = #{id}) A
+	LEFT JOIN tbuser
+	ON A.SHAUid = tbuser.Uid
+	WHERE A.SHAssthh_id>#{cursor} LIMIT #{pageSize}
+  </select>
+  
+  <!-- 查询用户的所有分享 -->
+   <select id="selectAllInfoById" parameterType="int" resultMap="BaseInfoResult">
+	SELECT Uid,Uname, head,tbshare.SHAssthh_id,tbshare.SHAtext
+	FROM tbuser, tbshare
+	WHERE Uid = #{id}
+  </select>
+  
+  <!-- 查询用户分享的评论消息 -->
+  <select id="selectAllInfoByIdWithComments" parameterType="int" resultMap="MyInfoResult" >
+	SELECT tbshare.SHAssthh_id,tbshare.SHAUid,tbshare.SHAtext,Uid,Uname, head,
+	A.Ctext, A.Ctime
+	FROM tbuser, tbshare, tbcomment A
+	WHERE tbshare.SHAUid = #{id} AND A.Cssthh_id = tbshare.SHAssthh_id AND A.CUid = Uid
+  </select>
+  
+  <!-- 根据分享id获取分享信息 -->
+  <select id="selectShareById" parameterType="String" resultMap="MyShareResult">
+  	SELECT tbshare.*, tbuser.head, tbuser.Uname  from tbshare 
+	LEFT JOIN tbuser
+	ON tbshare.SHAUid = tbuser.Uid
+	WHERE tbshare.SHAssthh_id = #{id}
+  </select>
+</mapper>

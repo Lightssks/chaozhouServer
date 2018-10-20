@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TbmapMapper" >
+  <resultMap id="BaseResultMap" type="com.po.Tbmap" >
+    <id column="Mid" property="mid" jdbcType="BIGINT" />
+    <result column="Mlongitude" property="mlongitude" jdbcType="DOUBLE" />
+    <result column="Mlatitude" property="mlatitude" jdbcType="DOUBLE" />
+    <result column="Marea" property="marea" jdbcType="VARCHAR" />
+    <result column="Mroad" property="mroad" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Mid, Mlongitude, Mlatitude, Marea, Mroad
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.po.TbmapExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbmap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbmap
+    where Mid = #{mid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbmap
+    where Mid = #{mid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.po.TbmapExample" >
+    delete from tbmap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.po.Tbmap" >
+    insert into tbmap (Mid, Mlongitude, Mlatitude, 
+      Marea, Mroad)
+    values (#{mid,jdbcType=BIGINT}, #{mlongitude,jdbcType=DOUBLE}, #{mlatitude,jdbcType=DOUBLE}, 
+      #{marea,jdbcType=VARCHAR}, #{mroad,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.po.Tbmap" >
+    insert into tbmap
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        Mid,
+      </if>
+      <if test="mlongitude != null" >
+        Mlongitude,
+      </if>
+      <if test="mlatitude != null" >
+        Mlatitude,
+      </if>
+      <if test="marea != null" >
+        Marea,
+      </if>
+      <if test="mroad != null" >
+        Mroad,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=BIGINT},
+      </if>
+      <if test="mlongitude != null" >
+        #{mlongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="mlatitude != null" >
+        #{mlatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="marea != null" >
+        #{marea,jdbcType=VARCHAR},
+      </if>
+      <if test="mroad != null" >
+        #{mroad,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.po.TbmapExample" resultType="java.lang.Integer" >
+    select count(*) from tbmap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbmap
+    <set >
+      <if test="record.mid != null" >
+        Mid = #{record.mid,jdbcType=BIGINT},
+      </if>
+      <if test="record.mlongitude != null" >
+        Mlongitude = #{record.mlongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mlatitude != null" >
+        Mlatitude = #{record.mlatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.marea != null" >
+        Marea = #{record.marea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mroad != null" >
+        Mroad = #{record.mroad,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbmap
+    set Mid = #{record.mid,jdbcType=BIGINT},
+      Mlongitude = #{record.mlongitude,jdbcType=DOUBLE},
+      Mlatitude = #{record.mlatitude,jdbcType=DOUBLE},
+      Marea = #{record.marea,jdbcType=VARCHAR},
+      Mroad = #{record.mroad,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.po.Tbmap" >
+    update tbmap
+    <set >
+      <if test="mlongitude != null" >
+        Mlongitude = #{mlongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="mlatitude != null" >
+        Mlatitude = #{mlatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="marea != null" >
+        Marea = #{marea,jdbcType=VARCHAR},
+      </if>
+      <if test="mroad != null" >
+        Mroad = #{mroad,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Mid = #{mid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.po.Tbmap" >
+    update tbmap
+    set Mlongitude = #{mlongitude,jdbcType=DOUBLE},
+      Mlatitude = #{mlatitude,jdbcType=DOUBLE},
+      Marea = #{marea,jdbcType=VARCHAR},
+      Mroad = #{mroad,jdbcType=VARCHAR}
+    where Mid = #{mid,jdbcType=BIGINT}
+  </update>
+  
+  <!-- ========手打================== -->
+  <resultMap id="YSResultMap" type="com.common.vo.YSMap" >
+    <id column="Mid" property="mid" jdbcType="BIGINT" />
+    <result column="Mlongitude" property="mlongitude" jdbcType="DOUBLE" />
+    <result column="Mlatitude" property="mlatitude" jdbcType="DOUBLE" />
+    <result column="Marea" property="marea" jdbcType="VARCHAR" />
+    <result column="Mroad" property="mroad" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="MapContrast" type="com.common.vo.MapContrastVo" >
+    <id column="Mid" property="mid" jdbcType="BIGINT" />
+    <result column="ContrastId" property="contrastId" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <select id="selectAllMaps" resultMap="YSResultMap">
+  	SELECT * from tbmap
+  </select>
+  
+  <select id="selectShopByMap" parameterType="long" resultMap="MapContrast">
+  SELECT A.Mid,SHOssthh_id ContrastId
+FROM (select Mid from tbmap where Mid =#{id}) A
+LEFT JOIN tbshop on A.Mid = SHOMid
+  </select>
+  
+  <select id="selectTourByMap" parameterType="long" resultMap="MapContrast">
+SELECT A.Mid,TOUssthh_id ContrastId
+FROM (select Mid from tbmap where Mid =#{id}) A
+LEFT JOIN tbtourists on A.Mid = TOUMid
+  </select>
+  
+  <select id="selectHotelByMap" parameterType="long" resultMap="MapContrast">
+  	SELECT A.Mid,HOTssthh_id ContrastId
+	FROM (select Mid from tbmap where Mid = #{id}) A
+	LEFT JOIN tbhotel on A.Mid = tbhotel.HOTMid 
+  </select>
+</mapper>
